@@ -1,5 +1,5 @@
 # ![](https://upload.wikimedia.org/wikipedia/commons/1/18/Creative-Tail-rocket.svg) SaturnV
-####Boost your Network Discovery & Recon activity.
+#### Boost your Network Discovery & Recon activity.
 
 SaturnV provides a fast deployable distributed port scanner and information collector infrastructure. This software was developed to provide a lightweight tool to pentesters who need to perform sporadic Network PenTest activities on big ranges of public faced IP subnets. The idea behind this tool is simple: I need that my PC uses remote bots to perform port scans and discovery activities in a distributed way. Once bots have finished the scans I just need to grab the results on my local machine, parse them and output a "starting report" that could be useful for further manual analysis.
 
@@ -8,7 +8,7 @@ SaturnV provides a fast deployable distributed port scanner and information coll
 - Asynchronous operations: bots are autonomous and work without staying connected to any sort of master host. So I can use this software on my PC to start the scan on the bots and then I can turn it off, no data will be lost.
 - Customizable: through the configuration file it is possible to tune your scan parameter and the tools command line. 
 
-![](/home/lcomi/work/script/SaturnV/architecture.png)
+![](img/architecture.png)
 
 ## Dependencies and Installation
 ### Local (Attacker) Machine Setup
@@ -18,6 +18,7 @@ git clone XX
 cd XX
 pip install -r requirements.txt
 ```
+
 ### Bots Configuration
 #### Host Requirements
 - Minimum 1GB RAM
@@ -25,7 +26,7 @@ pip install -r requirements.txt
 
 #### Firewall and Security
 If you are using Amazon AWS ec2 instances as bots (or any other provider witch uses bult-in firewall configuration), please remember to setup accordingly your security policy, in particular masscan needs the port 44444 open. Below is provided an example of AWS security rule configuration.
-![](aws_sec_rule.png)
+![](img/aws_sec_rule.png)
 
 #### User Permissions
 In order to boost performance while avoiding permissions errors, bot's user must be in condition to execute sudo commands without asking for password. Add the following line at the end of `/etc/sudoers` file.
