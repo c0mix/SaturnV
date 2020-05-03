@@ -14,8 +14,8 @@ SaturnV provides a fast deployable distributed port scanner and information coll
 ### Local (Attacker) Machine Setup
 Setup is very simple using pip.
 ```bash
-git clone XX 
-cd XX
+git clone https://github.com/c0mix/SaturnV.git 
+cd SaturnV
 pip install -r requirements.txt
 ```
 
