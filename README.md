@@ -123,7 +123,7 @@ user-name ALL=(ALL) NOPASSWD: ALL
     2. the Hackertarget API in order to discover as much host names as possible (Limited by request rate).
     3. the SSL certificate analysis in order to find out vhosts.
   
-  If you want to perform these operations, you have to provide the `-o` or `--osint` option while requesting the final report.
+    If you want to perform these operations, you have to provide the `-o` or `--osint` option while requesting the final report.
     ```bash
     python3 saturnV -g --report --osint # Grab results and produce a report with OSINT info
     python3 saturnV -g --report         # Grab results and produce a report without OSINT info 
