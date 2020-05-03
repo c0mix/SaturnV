@@ -26,6 +26,7 @@ pip install -r requirements.txt
 
 #### Firewall and Security
 If you are using Amazon AWS ec2 instances as bots (or any other provider witch uses bult-in firewall configuration), please remember to setup accordingly your security policy, in particular masscan needs the port 44444 open. Below is provided an example of AWS security rule configuration.
+
 ![](img/aws_sec_rule.png)
 
 #### User Permissions
@@ -74,13 +75,13 @@ user-name ALL=(ALL) NOPASSWD: ALL
    ```bash
    wget https://raw.githubusercontent.com/c0mix/subnet_splitter/master/subnet_splitter.py 
    python3 subnet_splitter.py --input original_subnets.txt --output target_subnets.txt --size 26
-    cat target_subnets.txt 
-    185.60.216.34/32
-    31.13.86.36/32
-    31.13.92.0/26
-    31.13.92.64/26
-    31.13.92.128/26
-    31.13.92.192/26
+   cat target_subnets.txt 
+   185.60.216.34/32
+   31.13.86.36/32
+   31.13.92.0/26
+   31.13.92.64/26
+   31.13.92.128/26
+   31.13.92.192/26
    ```
    You should notice that the application will specify the original subnets related to an host inside the final report.
 
@@ -121,7 +122,7 @@ user-name ALL=(ALL) NOPASSWD: ALL
     1. the Bing search engine with the `IP:` dork in order to find juicy file and information hosted on web servers. The results of this analysis will be placed in one single file `outputs/bing/url_resources.txt`.
     2. the Hackertarget API in order to discover as much host names as possible (Limited by request rate).
     3. the SSL certificate analysis in order to find out vhosts.
-    If you want to perform these operations, you have to provide the `-o` or `--osint` option while requesting the final report.
+  If you want to perform these operations, you have to provide the `-o` or `--osint` option while requesting the final report.
     ```bash
     python3 saturnV -g --report --osint # Grab results and produce a report with OSINT info
     python3 saturnV -g --report         # Grab results and produce a report without OSINT info 
