@@ -64,13 +64,13 @@ user-name ALL=(ALL) NOPASSWD: ALL
     31.13.92.0/24
     ``` 
     SaturnV will parse your list, convert domain names into IP addresses and put all targets in CIDR notation inside the default files `original_subnets.txt` and `target_subnets.txt`. 
-   ```bash
+    ```bash
    python3 saturnV.py --target all_targets.txt
    cat target_subnets.txt 
    185.60.216.34/32
    31.13.86.36/32
    31.13.92.0/24
-   ```
+    ```
    You are now ready to start the analysis **BUT** if you want better performance, greater masscan reliability and an equal bots workload you should split your target nets into equal subnets. In order to to this operation you can use the [subnet_splitter](https://github.com/c0mix/subnet_splitter) script as shown below:
    ```bash
    wget https://raw.githubusercontent.com/c0mix/subnet_splitter/master/subnet_splitter.py 
@@ -122,6 +122,7 @@ user-name ALL=(ALL) NOPASSWD: ALL
     1. the Bing search engine with the `IP:` dork in order to find juicy file and information hosted on web servers. The results of this analysis will be placed in one single file `outputs/bing/url_resources.txt`.
     2. the Hackertarget API in order to discover as much host names as possible (Limited by request rate).
     3. the SSL certificate analysis in order to find out vhosts.
+  
   If you want to perform these operations, you have to provide the `-o` or `--osint` option while requesting the final report.
     ```bash
     python3 saturnV -g --report --osint # Grab results and produce a report with OSINT info
