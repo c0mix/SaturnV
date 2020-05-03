@@ -1,0 +1,53 @@
+#!/bin/bash
+export LC_ALL=C
+sudo apt-get update
+sudo apt-get upgrade -y
+sudo apt-get install git net-tools unzip nmap tmux gcc make libpcap-dev python3-pip clang openssl python-openssl p7zip-full -y
+
+# Create folder structure
+mkdir ~/saturnV/scripts
+mkdir ~/saturnV/outputs
+mkdir ~/saturnV/outputs/masscan
+mkdir ~/saturnV/outputs/nmap
+mkdir ~/saturnV/outputs/amass
+mkdir ~/saturnV/outputs/gobuster
+mkdir ~/saturnV/tools
+cd ~/saturnV/tools
+
+if
+[ ! -f ~/saturnV/tools/gobuster-linux-amd64.7z ]; then
+    wget -q https://github.com/OJ/gobuster/releases/download/v3.0.1/gobuster-linux-amd64.7z
+    7z e gobuster-linux-amd64.7z -aoa
+    chmod +x gobuster
+fi
+if [ ! -f ~/saturnV/tools/common_wordlist.txt ]; then
+    wget -q https://gist.githubusercontent.com/c0mix/c7b28c6ed5f274e5b960532777d78bcc/raw/dc183aef879fef21c2eba1f316cad2bac6ad2b88/common_wordlist.txt
+fi
+
+# Download and install amass
+if [ ! -f ~/saturnV/tools/amass_v3.5.5_linux_amd64.zip ]; then
+    wget -q https://github.com/OWASP/Amass/releases/download/v3.5.5/amass_v3.5.5_linux_amd64.zip
+    unzip amass_v3.5.5_linux_amd64.zip
+    mv amass_v3.5.5_linux_amd64 amass
+fi
+
+# Download and install masscan
+if [ ! -f ~/saturnV/tools/tools/masscan/bin/masscan ]; then
+    git clone https://github.com/robertdavidgraham/masscan
+    cd ./masscan
+    make
+    make regress
+    sudo iptables -A INPUT -i eth0 -p tcp --dport 44444 -j DROP
+fi
+
+cd ~/saturnV
+echo "### masscan test ###" >> /tmp/saturnV_install_log.txt
+./tools/masscan/bin/masscan -v >> /tmp/saturnV_install_log.txt
+echo "### amass test ###" >> /tmp/saturnV_install_log.txt
+./tools/amass/amass -version && echo "v3.5.5" >> /tmp/saturnV_install_log.txt
+echo "### gobuster test ###" >> /tmp/saturnV_install_log.txt
+./tools/gobuster >> /tmp/saturnV_install_log.txt
+echo "### nmap test ###" >> /tmp/saturnV_install_log.txt
+nmap -V >> /tmp/saturnV_install_log.txt
+
+# ADD here your additional commands
