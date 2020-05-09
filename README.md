@@ -142,7 +142,7 @@ python3 saturnV -g --report # Grab results and produce a report without OSINT in
 ## Execution Example
 1. Clone the project from github
   ```
-  ubuntu@ip-172-31-6-246:~$ git clone https://github.com/c0mix/SaturnV.git
+  ~$ git clone https://github.com/c0mix/SaturnV.git
   Cloning into 'SaturnV'...
   remote: Enumerating objects: 32, done.
   remote: Counting objects: 100% (32/32), done.
@@ -153,8 +153,8 @@ python3 saturnV -g --report # Grab results and produce a report without OSINT in
 
 2. Install the requirement on attacker's PC
   ```
-  ubuntu@ip-172-31-6-246:~$ cd SaturnV/
-  ubuntu@ip-172-31-6-246:~/SaturnV$ sudo pip3 install -r requirements.txt 
+  ~$ cd SaturnV/
+  ~/SaturnV$ sudo pip3 install -r requirements.txt 
   Collecting aiocontextvars==0.2.2 (from -r requirements.txt (line 1))
     Downloading https://files.pythonhosted.org/packages/db/c1/7a723e8d988de0a2e623927396e54b6831b68cb80dce468c945b849a9385/aiocontextvars-0.2.2-py2.py3-none-any.whl
   Collecting bcrypt==3.1.7 (from -r requirements.txt (line 2))
@@ -162,7 +162,7 @@ python3 saturnV -g --report # Grab results and produce a report without OSINT in
   100% |████████████████████████████████| 61kB 3.0MB/s 
   [ . . . ]
   Successfully installed PyNaCl-1.3.0 aiocontextvars-0.2.2 bcrypt-3.1.7 certifi-2020.4.5.1 cffi-1.14.0 contextvars-2.4 cryptography-2.8 idna-2.9 immutables-0.11 loguru-0.4.1 paramiko-2.7.1 pyOpenSSL-19.1.0 pycparser-2.19 python-libnmap-0.7.0 pyxattr-0.7.1 requests-2.23.0 scp-0.13.2 six-1.14.0 urllib3-1.25.9
-  ubuntu@ip-172-31-6-246:~/SaturnV$ python3 saturnV.py 
+  ~/SaturnV$ python3 saturnV.py 
 
   ***** Welcome to SaturnV *****
 
@@ -204,16 +204,16 @@ python3 saturnV -g --report # Grab results and produce a report without OSINT in
 
 ![](img/config.png)
 
-4. Setup youre SSH Key (in this case I'm using AWS bots so I've putted my private key inside ssh_key folder)
+4. Setup your SSH Key (in this case I'm using AWS bots so I've put my private key inside ssh_key folder)
   ``` 
-  ubuntu@ip-172-31-6-246:~/SaturnV$ ls -l ssh_key/
+  ~/SaturnV$ ls -l ssh_key/
   total 4
   -r-------- 1 ubuntu ubuntu 1692 May  9 14:27 lcomi.pem
   ```
 
 5. Setup bots
   ```
-  ubuntu@ip-172-31-6-246:~/SaturnV$ python3 saturnV.py --setup
+  ~/SaturnV$ python3 saturnV.py --setup
 
   ***** Welcome to SaturnV *****
 
@@ -237,12 +237,12 @@ python3 saturnV -g --report # Grab results and produce a report without OSINT in
   ![](img/target.png)
 
   ```
-  ubuntu@ip-172-31-6-246:~/SaturnV$ python3 saturnV.py --target my_target.txt 
+  ~/SaturnV$ python3 saturnV.py --target my_target.txt 
 
   ***** Welcome to SaturnV *****
 
   15:05:04 | INFO | File my_target.txt was successfully elaborated, new targets file is original_subnets.txt
-  ubuntu@ip-172-31-6-246:~/SaturnV$ wget https://raw.githubusercontent.com/c0mix/subnet_splitter/master/subnet_splitter.py && python3 subnet_splitter.py --input original_subnets.txt --output target_subnets.txt --size 28
+  ~/SaturnV$ wget https://raw.githubusercontent.com/c0mix/subnet_splitter/master/subnet_splitter.py && python3 subnet_splitter.py --input original_subnets.txt --output target_subnets.txt --size 28
   --2020-05-09 15:07:13--  https://raw.githubusercontent.com/c0mix/subnet_splitter/master/subnet_splitter.py
   Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 151.101.124.133
   Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|151.101.124.133|:443... connected.
@@ -254,7 +254,7 @@ python3 saturnV -g --report # Grab results and produce a report without OSINT in
 
   2020-05-09 15:07:13 (46.8 MB/s) - ‘subnet_splitter.py’ saved [2499/2499]
 
-  ubuntu@ip-172-31-6-246:~/SaturnV$ cat target_subnets.txt
+  ~/SaturnV$ cat target_subnets.txt
   185.60.216.34/32
   31.13.71.36/32
   31.13.92.0/28
@@ -277,7 +277,7 @@ python3 saturnV -g --report # Grab results and produce a report without OSINT in
 
 7. Prepare and launch masscan test 
   ```
-  ubuntu@ip-172-31-6-246:~/SaturnV$ python3 saturnV.py --masscan-script --masscan-run
+  ~/SaturnV$ python3 saturnV.py --masscan-script --masscan-run
 
   ***** Welcome to SaturnV *****
 
@@ -289,7 +289,7 @@ python3 saturnV -g --report # Grab results and produce a report without OSINT in
   15:08:55 | INFO | Uploaded scripts/masscan_scan_script_2.sh to ~/saturnV/scripts/
   15:08:55 | INFO | Command: chmod +x ~/saturnV/scripts/masscan_scan_script_2.sh Executed on Bot: 3.22.117.16
   15:08:55 | INFO | Command: cd ~/saturnV/ && tmux new -d -s masscan "scripts/masscan_scan_script_2.sh" Executed on Bot: 3.22.117.16
-  ubuntu@ip-172-31-6-246:~/SaturnV$ python3 saturnV.py --check
+  ~/SaturnV$ python3 saturnV.py --check
 
   ***** Welcome to SaturnV *****
 
@@ -307,7 +307,7 @@ python3 saturnV -g --report # Grab results and produce a report without OSINT in
   16:51:03 | INFO | SSH private key found in ssh_key folder, the following key will be used: lcomi.pem
   16:51:04 | INFO | masscan execution 100% completed on Bot: 3.12.83.119
   16:51:05 | INFO | masscan execution 100% completed on Bot: 3.22.117.16
-  ubuntu@ip-172-31-6-246:~/SaturnV$ python3 saturnV.py --get-results
+  ~/SaturnV$ python3 saturnV.py --get-results
 
   ***** Welcome to SaturnV *****
 
@@ -318,7 +318,7 @@ python3 saturnV -g --report # Grab results and produce a report without OSINT in
 
 9. Prepare and lauch other scans
   ```
-  ubuntu@ip-172-31-6-246:~/SaturnV$ python3 saturnV.py --nmap-script --amass-script --gobuster-script --nmap-run --amass-run --gobuster-run
+  ~/SaturnV$ python3 saturnV.py --nmap-script --amass-script --gobuster-script --nmap-run --amass-run --gobuster-run
 
   ***** Welcome to SaturnV *****
 
@@ -351,7 +351,7 @@ python3 saturnV -g --report # Grab results and produce a report without OSINT in
 
 10. Grab again the results, make OSINT and finally produce the CSV report.
   ```
-  ubuntu@ip-172-31-6-246:~/SaturnV$ python3 saturnV.py --get-results --osint --report
+  ~/SaturnV$ python3 saturnV.py --get-results --osint --report
 
   ***** Welcome to SaturnV *****
 
@@ -375,7 +375,7 @@ python3 saturnV -g --report # Grab results and produce a report without OSINT in
   17:11:48 | INFO | Web application URLs eventually discovered with Bing dork can be found here: outputs/bing/url_resources.txt
   17:11:48 | INFO | Creating the final report: final_output.csv
   ```
-  
+
   ![](img/final.png)
 
 
