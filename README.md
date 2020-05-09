@@ -150,6 +150,7 @@ python3 saturnV -g --report # Grab results and produce a report without OSINT in
   remote: Total 32 (delta 10), reused 25 (delta 4), pack-reused 0
   Unpacking objects: 100% (32/32), done.
   ```
+
 2. Install the requirement on attacker's PC
   ```
   ubuntu@ip-172-31-6-246:~$ cd SaturnV/
@@ -200,8 +201,8 @@ python3 saturnV -g --report # Grab results and produce a report without OSINT in
   ```
 
 3. Edit the configuration file with your parameters (at least `bots` and `npt_name` must be set)
-![](img/config.png)
 
+![](img/config.png)
 
 4. Setup youre SSH Key (in this case I'm using AWS bots so I've putted my private key inside ssh_key folder)
   ``` 
@@ -232,7 +233,9 @@ python3 saturnV -g --report # Grab results and produce a report without OSINT in
 ```
 
 6. Define your target inside a file, such as the following `my_target.txt`
+
   ![](img/target.png)
+
   ```
   ubuntu@ip-172-31-6-246:~/SaturnV$ python3 saturnV.py --target my_target.txt 
 
@@ -372,6 +375,7 @@ python3 saturnV -g --report # Grab results and produce a report without OSINT in
   17:11:48 | INFO | Web application URLs eventually discovered with Bing dork can be found here: outputs/bing/url_resources.txt
   17:11:48 | INFO | Creating the final report: final_output.csv
   ```
+  
   ![](img/final.png)
 
 
