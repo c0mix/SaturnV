@@ -12,7 +12,7 @@ SaturnV provides a fast deployable distributed port scanner and information coll
 
 ## Dependencies and Installation
 ### Local (Attacker) Machine Setup
-Setup is very simple using pip.
+Python3 and python3-pip is required to run SaturnV and its dependencies. Setup is very simple using pip.
 ```bash
 git clone https://github.com/c0mix/SaturnV.git 
 cd SaturnV
@@ -25,7 +25,7 @@ pip install -r requirements.txt
 - OS: Ubuntu 18.04.4 LTS (This is not mandatory but I've tested the tool on it)
 
 #### Firewall and Security
-If you are using Amazon AWS ec2 instances as bots (or any other provider witch uses bult-in firewall configuration), please remember to setup accordingly your security policy, in particular masscan needs the port 44444 open. Below is provided an example of AWS security rule configuration.
+If you are using Amazon AWS ec2 instances as bots (or any other provider witch uses built-in firewall configuration), please remember to setup accordingly your security policy, in particular masscan needs the port 44444 open. Below is provided an example of AWS security rule configuration.
 
 ![](img/aws_sec_rule.png)
 
@@ -130,7 +130,98 @@ user-name ALL=(ALL) NOPASSWD: ALL
     ```
 
 ## Execution Example
-TODO
+1) Clone the project from github
+```
+ubuntu@ip-172-31-6-246:~$ git clone https://github.com/c0mix/SaturnV.git
+Cloning into 'SaturnV'...
+remote: Enumerating objects: 32, done.
+remote: Counting objects: 100% (32/32), done.
+remote: Compressing objects: 100% (25/25), done.
+remote: Total 32 (delta 10), reused 25 (delta 4), pack-reused 0
+Unpacking objects: 100% (32/32), done.
+```
+2) install the requirement on attacker's PC
+```
+ubuntu@ip-172-31-6-246:~$ cd SaturnV/
+ubuntu@ip-172-31-6-246:~/SaturnV$ sudo pip3 install -r requirements.txt 
+Collecting aiocontextvars==0.2.2 (from -r requirements.txt (line 1))
+  Downloading https://files.pythonhosted.org/packages/db/c1/7a723e8d988de0a2e623927396e54b6831b68cb80dce468c945b849a9385/aiocontextvars-0.2.2-py2.py3-none-any.whl
+Collecting bcrypt==3.1.7 (from -r requirements.txt (line 2))
+  Downloading https://files.pythonhosted.org/packages/8b/1d/82826443777dd4a624e38a08957b975e75df859b381ae302cfd7a30783ed/bcrypt-3.1.7-cp34-abi3-manylinux1_x86_64.whl (56kB)
+    100% |████████████████████████████████| 61kB 3.0MB/s 
+[ . . . ]
+Successfully installed PyNaCl-1.3.0 aiocontextvars-0.2.2 bcrypt-3.1.7 certifi-2020.4.5.1 cffi-1.14.0 contextvars-2.4 cryptography-2.8 idna-2.9 immutables-0.11 loguru-0.4.1 paramiko-2.7.1 pyOpenSSL-19.1.0 pycparser-2.19 python-libnmap-0.7.0 pyxattr-0.7.1 requests-2.23.0 scp-0.13.2 six-1.14.0 urllib3-1.25.9
+ubuntu@ip-172-31-6-246:~/SaturnV$ python3 saturnV.py 
+
+***** Welcome to SaturnV *****
+
+14:37:03 | ERROR | No argument provided!
+
+usage: saturnV.py [-h] [-t TARGET] [-k] [-s] [-mS] [-nS] [-aS] [-gS] [-mR]
+                  [-nR] [-aR] [-gR] [-g] [-c] [-o] [-r] [-v]
+
+Boost your Network Discovery & Recon activity.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -t TARGET, --target TARGET
+                        Takes as input a multi format target list and produces
+                        the original_subnets.txt file
+  -k, --ssh-key         Deploy an ssh key on bots
+  -s, --setup           Install all the required tools and create folder
+                        structure on bots
+  -mS, --masscan-script
+                        Create the Masscan script
+  -nS, --nmap-script    Create the Nmap script (Masscan results needed!)
+  -aS, --amass-script   Create the Amass script (Masscan results needed!)
+  -gS, --gobuster-script
+                        Create the Gobuster script (Masscan results needed!)
+  -mR, --masscan-run    Split and run Masscan script on bots
+  -nR, --nmap-run       Split and run Nmap script on bots
+  -aR, --amass-run      Split and run Amass script on bots
+  -gR, --gobuster-run   Split and run Gobuster script on bots
+  -g, --get-results     Collect outputs from all bots
+  -c, --check-scan      Check scan progress on each bot
+  -o, --osint           Perform OSINT activity (Grab info from SSL certs,
+                        HackerTarget and Bing Dork)
+  -r, --report          Create the final report (at least Masscan results
+                        needed!)
+  -v, --verbose         Increase output verbosity
+```
+
+4) Editing the configuration file with your parameters (at least `bots` and `npt_name` must be set)
+![](/img/config.png)
+
+
+5) SSH Key (in this case I'm using AWS bots so I've putted my private key inside ssh_key folder)
+``` 
+ubuntu@ip-172-31-6-246:~/SaturnV$ ls -l ssh_key/
+total 4
+-r-------- 1 ubuntu ubuntu 1692 May  9 14:27 lcomi.pem
+```
+
+6) Setup bots
+```
+ubuntu@ip-172-31-6-246:~/SaturnV$ python3 saturnV.py --setup
+
+***** Welcome to SaturnV *****
+
+14:46:42 | INFO | SSH private key found in ssh_key folder, the following key will be used: lcomi.pem
+14:46:44 | INFO | Command: mkdir ~/saturnV Executed on Bot: 3.12.83.119
+14:46:44 | INFO | Command: touch /tmp/saturnV_install_log.txt Executed on Bot: 3.12.83.119
+14:46:44 | INFO | Uploaded bot_dependencies.txt to ~/saturnV/bot_dependencies.sh
+14:46:44 | INFO | Command: chmod +x ~/saturnV/bot_dependencies.sh Executed on Bot: 3.12.83.119
+14:46:44 | INFO | Starting dependencies installation on Bot 3.12.83.119, this might take a while...
+14:46:56 | INFO | Dependencies installation on Bot 3.12.83.119 is FINISHED, please review logs/saturnV_install_log_3_12_83_119.txt log file to check if everything went well!
+14:46:58 | INFO | Command: mkdir ~/saturnV Executed on Bot: 3.22.117.16
+14:46:58 | INFO | Command: touch /tmp/saturnV_install_log.txt Executed on Bot: 3.22.117.16
+14:46:58 | INFO | Uploaded bot_dependencies.txt to ~/saturnV/bot_dependencies.sh
+14:46:58 | INFO | Command: chmod +x ~/saturnV/bot_dependencies.sh Executed on Bot: 3.22.117.16
+14:46:58 | INFO | Starting dependencies installation on Bot 3.22.117.16, this might take a while...
+14:47:11 | INFO | Dependencies installation on Bot 3.22.117.16 is FINISHED, please review logs/saturnV_install_log_3_22_117_16.txt log file to check if everything went well!
+```
+
+
 
 
 ## References

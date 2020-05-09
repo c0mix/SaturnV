@@ -429,6 +429,7 @@ def elaborate_target(targets_file):
                     logger.error(f'Unable to parse the line: {line.strip()}')
     output.close()
     os.system('cp {} {}'.format(config['info']['targets_original_subs'], config['info']['targets_file']))
+    logger.info(f"File {targets_file} was successfully elaborated, new targets file is {config['info']['targets_original_subs']}")
 
 
 def check_scripts(script, bot_list):
@@ -494,6 +495,7 @@ if __name__ == '__main__':
     if args.target:
         if os.path.isfile(args.target):
             elaborate_target(args.target)
+            exit(0)
         else:
             logger.error(f'The supplied argument: "{args.target}" is not a valid file!')
             exit(1)
