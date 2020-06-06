@@ -358,7 +358,11 @@ def run_script(script, bot_list):
     '''
     Splits and Executes a given script on the different bots
     '''
-    tot_line = sum(1 for l in open(script, 'r'))
+    try:
+        tot_line = sum(1 for l in open(script, 'r'))
+    except:
+        logger.error(f"No script file {script} found! Check if you have already created this script. Exiting")
+        exit(1)
     attack = open(script, 'r')
     delta = (int(tot_line/len(bot_list)))
     i = 0
@@ -417,6 +421,9 @@ def get_subnet(ip):
 
 
 def elaborate_target(targets_file):
+    '''
+    Provide a tool-compatible list of targets
+    '''
     output = open(config['info']['targets_original_subs'], 'w')
     with open(targets_file, 'r') as input:
         for line in input.readlines():
@@ -454,6 +461,7 @@ def check_output_files(tool_output_dir):
         return False
     except:
         return False
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Boost your Network Discovery & Recon activity.')
